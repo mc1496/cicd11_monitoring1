@@ -1,0 +1,30 @@
+max@m20:~/y/xCloudDevOps/cicd/cicd11_monitoring1$ ./deploy.sh xam-ec2-mon1 ec2-prometheus.yml ec2-prometheus.json 
+WARNING: NO EnvironmentName-Value is provided 
+
+deploying the stack: xam-ec2-mon1
+
+Waiting for changeset to be created..
+Waiting for stack create/update to complete
+Successfully created/updated stack - xam-ec2-mon1
+{
+    "Exports": [
+        {
+            "ExportingStackId": "arn:aws:cloudformation:us-east-1:474608141926:stack/xam-ec2-mon1/ef836710-7a97-11ed-9d9d-12653ebbb733",
+            "Name": "XAM-EC2PublicDnsName-Prometheus",
+            "Value": "ec2-3-85-238-248.compute-1.amazonaws.com"
+        }
+    ]
+}
+
+copy pubdns to inventory-ec2-prometheus.txt 
+
+max@m20:~/y/xCloudDevOps/cicd/cicd11_monitoring1$
+max@m20:~/y/xCloudDevOps/cicd/cicd11_monitoring1$ ansible-playbook -i inventory-ec2-prometheus.txt ansible-ec2-prometheus.yml --private-key=xam-ec2-key-cicd.pem
+
+after it's done check
+ec2-3-85-238-248.compute-1.amazonaws.com:9090
+
+go to status service directory
+
+max@m20:~/y/xCloudDevOps/cicd/cicd11_monitoring1$ ./delete.sh xam-ec2-mon1
+
